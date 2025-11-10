@@ -12,6 +12,11 @@ body {
     font-size: 2em;
 }
 
+a {
+    color: slategray;
+
+}
+
 /* Smartphone/Tablet: Bis 600px Breite */
 @media (max-width: 600px) {
     body {
