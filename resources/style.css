@@ -4,9 +4,19 @@
     font-weight: normal;
     font-style: normal;
 }
-body{
-    font-family: "OCR A Extended", monospace;
+/* Standard: Desktop */
+body {
+    font-family: 'OCR A Extended', monospace;
     margin: 150px;
     color: white;
+    font-size: 2em;
+}
+
+/* Smartphone/Tablet: Bis 600px Breite */
+@media (max-width: 600px) {
+    body {
+        margin: 20px;
+        font-size: 1em;
+    }
 }
 
