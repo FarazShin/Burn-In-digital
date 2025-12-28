@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>portfolio</title>
@@ -29,7 +29,7 @@
         </div>
     </section>
 
-    <section class="about">
+    <section class="blackBox">
         <div class="roW" style="justify-content: space-between">
             <div style="max-width: 500px">
                 <img src="resources/images/render.png" alt="Liquid render" class="liquidRender">
@@ -46,10 +46,63 @@
                 </div>
             </div>
         </div>
-
     </section>
 
-    <section id="campaigns" class="section section--campaigns">
+    <section id="about">
+        <div class="roW">
+            <div class="aboutText">
+                <p>
+                    <span class="about-text__label">/ABOUT ME</span>
+                    Originally from Iran, I’ve always been curious about how design and
+                    digital systems connect. Over the past eight years I’ve built experience
+                    in both creative and technical sides of marketing. In 2025 I completed
+                    my bachelor’s thesis exploring content creation and automation through AI.
+                </p>
+            </div>
+            <div class="navList">
+                <p class="navigationLabel">:NAVIGATION</p>
+                <nav class="navigationList">
+                    <a href="#hybrid"   class="navigationLink">/Hybrid Design</a>
+                    <a href="#visuals"  class="navigationLink">/3D Visuals</a>
+                    <a href="#campaigns" class="navigationLink">/Campaigns</a>
+                    <a href="#uxweb"    class="navigationLink">/UX &amp; Web</a>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <section id="hybrid" class="blackBox">
+        <div class="roW">
+            <div class="hybridArt">
+                <!-- Top row: 3 posters -->
+                <img src="resources/images/Poster%20scara.png" alt="FullDarkness Design" class="artThumb">
+                <img src="resources/images/FD%2010%20Plakat.png" alt="Vlocity Event Design" class="artThumb">
+                <img src="resources/images/Plakat%20FINAL%20PNG%20low.png" alt="Vlocity Event Design 2" class="artThumb">
+
+                <!-- Bottom row: Cartel design -->
+                <img src="resources/images/To%20Be%20Announced.png" alt="Cartel Logo Design" class="artThumb artThumbCartel">
+
+                <!-- Bottom row: 2x2 grid container for 4 logos -->
+                <div class="logoGrid">
+                    <img src="resources/images/ramenbowl1.png" alt="RB Logo" class="artThumbLogo">
+                    <img src="resources/images/Logo%20LF.png" alt="Abstract Logo" class="artThumbLogo">
+                    <img src="resources/images/LIW%2023%20LOGO.png" alt="Typography" class="artThumbLogo">
+                    <img src="resources/images/table.png" alt="Geometric Pattern" class="artThumbLogo">
+                </div>
+            </div>
+
+            <div class="hybridTextBox textRight">
+                <p class="hybridText">
+                    <span class="about-text__label">/Eye catching Hybrid Designs</span>
+                    Designs
+                    Exploring the synergy between two design dimensions to achieve balance between simplicity and depth. This includes everything from minimalist logos to complex dimensional artworks, all designed to catch attention at first glance and hold it through refined detail, vibrant color, and modern composition.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="campaigns">
         <!-- your campaigns content here -->
     </section>
 </main>

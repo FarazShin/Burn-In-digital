@@ -17,10 +17,17 @@
     font-weight: normal;
     font-style: normal;
 }
+
+:root {
+    --colorBackground: #000000;
+    --colorPage: #F2F0EF;
+    --colorText: #FFFFFF;
+    --colorAccent: #E60000;
+}
 /* Standard: Desktop */
 body {
     margin: 0;
-    background: #F2F0EF;
+    background: var(--colorPage);
     font-family: "OCR A Extended", sans-serif;
 }
 
@@ -28,8 +35,15 @@ p{
     font-family: "Miriam Mono CLM", serif;
     font-size: 32px;
 }
+.roW{
+    display:flex;
+}
+.textRight{
+    text-align: right;
+}
+
 .site-header {
-    background: #000;
+    background: var(--colorBackground);
     height: 77px;
     display: flex;
     align-items: center;
@@ -40,10 +54,10 @@ p{
     z-index: 1000;
 }
 
-.about{
-    background-color: black;
+.blackBox{
+    background-color: var(--colorBackground);
     width: 100%;
-    height: 700px;
+    height: 800px;
 }
 .nav {
     display: flex;
@@ -51,7 +65,7 @@ p{
 }
 
 .nav__link {
-    color: #ffffff;
+    color: var(--colorText);
     text-decoration: none;
     font-size: 16px;
     letter-spacing: 0.08em;
@@ -61,7 +75,7 @@ p{
 
 
 .nav__link--active {
-    color: #E60000;
+    color: var(--colorAccent);
 }
 
 .hero {
@@ -86,16 +100,18 @@ p{
 }
 
 .liquidRender{
-    margin-left: -96%;
+    /*margin-left: -110%;*/
+    margin-left: -550px;
     margin-top: -200px;
     height: auto;
-    width: 70vw;
+    width: 75vw;
     position: relative;
     z-index: 999;
 }
 .flate{
     height: auto;
     width: 20vw;
+    margin-right: -20px;
 }
 .hero__tags {
     position: absolute;
@@ -107,16 +123,119 @@ p{
 
 .hero__tag-line {
     margin: 0;
-    color: #e60000;
+    color: var(--colorAccent);
     font-size: 32px;
     font-family: "OCR A Extended", monospace;
 }
-.roW{
-    display:flex;
+
+#about{
+    min-height: 800px;
 }
-.textRight{
-    text-align: right;
+
+.aboutText{
+    margin-left: 5%;
+    margin-top: 250px;
+    margin-right: 10%;
+    width: 65%;
 }
+
+.about-text__label {
+    display: block;
+    font-family: "OCR A Extended", monospace;
+    font-size: 32px;
+    color: var(--colorAccent);
+}
+.navList{
+    width: 35%;
+    height: 550px;
+    background-color: var(--colorAccent);
+    padding-left: 5%;
+    padding-top: 250px;
+    color: var(--colorText);
+}
+
+.navigationLabel {
+    font-family: "OCR A Extended", monospace;
+    margin: 0 0 24px 0;
+    color: black;
+}
+
+.navigationList {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.navigationLink {
+    color: var(--colorText);
+    text-decoration: underline;
+    font-size: 32px;
+    font-family: "OCR A Extended", monospace;
+}
+
+.navigationLink:hover {
+    text-decoration: none;
+}
+
+#hybrid{
+    height: 890px;
+}
+
+.hybridTextBox{
+    width: 38%;
+}
+
+.hybridText{
+    color: white;
+    margin-top: 150px;
+    margin-right: 5vw;
+    margin-left: 5vw;
+}
+
+.hybridArt {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    width: 62%;
+    margin-top: -20px;
+    margin-left: -5vw;
+
+}
+
+/* Top row: 3 posters normal */
+.artThumb {
+    width: 350px;
+    height: auto;
+    display: block;
+}
+
+/* Bottom row: Cartel spanning 1 column */
+.artThumbCartel {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 10px;
+    margin-left: -50px;
+}
+
+/* Bottom row: 2x2 logo grid spanning 2 columns */
+.logoGrid {
+    grid-column: 3;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-top: 10px;
+    margin-left: -50px;
+}
+
+.artThumbLogo {
+    width: 80%;
+    height: auto;
+    display: block;
+}
+
+
+
 @media (max-width: 920px) {
     body {
         margin: 20px;
