@@ -236,6 +236,161 @@ p{
 
 
 
+
+.visualsSection {
+    position: relative;
+    width: 100%;
+    min-height: 800px;
+    background-image: url('../resources/images/Boxer 4.png');
+    background-size: cover;
+    background-position: center;
+    padding: 40px 0px;
+}
+
+.visualsText {
+    margin-left: 5vw;
+    position: relative;
+    max-width: 400px;
+    color: white;
+    z-index: 10;
+    font-size: 32px;
+}
+
+.visualsLabel {
+    font-family: "OCR A Extended", monospace;
+    color: var(--colorAccent);
+    margin-top: 200px;
+}
+
+.visualsDesc {
+    margin-top: -32px;
+    font-family: "Miriam Mono CLM", serif;
+}
+
+/* Screen oben rechts */
+.visualScreen {
+    position: absolute;
+    top: 48%;
+    left: 52%;
+    width: 30%;
+    z-index: 6;
+}
+
+/* Truck unten rechts */
+.visualTruck {
+    position: absolute;
+    bottom: 10%;
+    right: 0%;
+    width: 30%;
+    z-index: 5;
+}
+
+/* Ice Cube unten links */
+.visualIce {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    width: 20%;
+    z-index: 7;
+}
+
+
+/* Campaings FD */
+.fdCampaign{
+    margin-top: 80px;
+    margin-left: -5vw;
+    max-height: 400px;
+}
+
+.campaignImgFd1{
+    width: 90%;
+    height: auto;
+}
+.campaignImgFd2{
+    margin-left: 80px;
+    width: 76.3%;
+    height: auto;
+}
+
+.campaignText {
+    margin-left: 80px;
+    padding-left: 40px;
+    font-size: 32px;
+    color: black;
+
+}
+
+.campaignLabel {
+    font-family: "OCR A Extended", monospace;
+    color: var(--colorAccent);
+
+}
+
+.campaignTitle {
+    font-family: "Miriam Mono CLM BOLD", serif;
+    margin-top: -32px;
+}
+
+.campaignDesc{
+    margin-top: -32px;
+}
+
+
+
+.IsCampaign {
+    margin-top: 250px;
+    align-items: flex-start;
+     /* overflow: hidden; damit die rechts rausgehenden Bilder sauber abgeschnitten werden */
+}
+
+/* Div 1: Bier Design */
+.isDiv1 {
+    margin-top: 70px;
+    margin-left: 5vw;
+    flex: 0 0 auto;
+    margin-right: 40px;
+}
+
+.isolarBierImg {
+    width: 220px;
+    height: auto;
+}
+
+/* Div 2: Text */
+.isDiv2 {
+    margin-top: 70px;
+    flex: 0 0 auto;
+    max-width: 400px;
+    padding: 0 40px;
+}
+
+/* Div 3: Grid-Container */
+.isDiv3 {
+    max-width: 50%;
+    flex: 1;
+    overflow: visible; /* Grid darf rausgehen */
+}
+
+.isolarGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto auto;
+    gap: 40px;
+}
+
+.isolarGridImg {
+
+    width: 90%;
+    height: auto;
+    display: block;
+}
+
+/* Zweite Reihe nach rechts verschoben */
+.isolarGridImgShifted {
+    margin-left: 80px;
+}
+
+
 @media (max-width: 920px) {
     body {
         margin: 20px;
