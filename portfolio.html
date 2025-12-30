@@ -127,7 +127,7 @@
                 <img src="resources/images/fd%20app%20(3).png" alt="Delivery App Phone" class="campaignImgFd2">
             </div>
 
-            <div style="max-width: 25%">
+            <div>
                 <div class="campaignText">
                     <p class="campaignLabel">/Online campaigns</p>
                     <p class="campaignTitle">Green Delivery App</p>
@@ -177,7 +177,58 @@
         </div>
 
     </section>
-</main>
 
+
+    <section id="uxweb">
+        <div class="roW" style="justify-content: space-between;">
+            <div class="uxText">
+                <p class="visualsLabel">/Digital Experience </p>
+                <p class="visualsDesc">
+                    Projects created during university that explore how users interact with digital spaces in both app and web environments. The work focuses on building clear paths, smooth navigation and visual systems that feel coherent and accessible. Each interface aims to translate ideas into experiences that are easy to understand and enjoyable to use.
+                </p>
+                <img src="resources/images/MyCargo%20Screenshot.png" alt="UX MG" class="UxMgImg">
+            </div>
+
+            <div class="UxSmartphoneGroup">
+                <img src="resources/images/UX%20Group%201.png" alt="UX Group" class="UxSmartphoneGroupImg">
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contactWrapper">
+            <!-- Text links -->
+            <div class="contactText">
+                <p class="contactDesc">
+                    Let's work together and move your project forward with a modern and
+                    precise direction :)
+                </p>
+                <a href="#" class="contactLink" id="copyEmailBtn">/CONTACT ME</a>
+            </div>
+
+            <!-- Silver Liquid Graphic rechts, überlappt nach oben -->
+            <img src="resources/images/render4.png" alt="Liquid Design" class="liquidGraphic">
+        </div>
+
+        <!-- Back to Top Button -->
+        <a href="#top" class="backToTop">^ BACK TO TOP ^</a>
+    </section>
+
+</main>
+<script>
+    document.getElementById('copyEmailBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const email = 'faraz.s@gmx.de';
+
+        navigator.clipboard.writeText(email).then(function() {
+            alert('Email copied to clipboard!');
+        }).catch(function(err) {
+            console.error('Copy failed:', err);
+        });
+    });
+</script>
 </body>
 </html>
