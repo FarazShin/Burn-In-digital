@@ -32,6 +32,10 @@
 }
 
 /* ==================== GLOBAL ==================== */
+html {
+    background: #000000;
+}
+
 body {
     margin: 0;
     background: var(--colorPage);
@@ -41,6 +45,33 @@ body {
 p {
     font-family: "Miriam Mono CLM", serif;
     font-size: var(--fontSize);
+}
+
+.site-wrapper {
+    max-width: 1920px;
+    width: 100%;
+    margin: 0 auto;
+    background: var(--colorPage);
+    position: relative;
+}
+
+.site-wrapper::before,
+.site-wrapper::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: calc((100vw - 1920px) / 2);
+    background: #000000;
+    z-index: 9999;
+}
+
+.site-wrapper::before {
+    left: 0;
+}
+
+.site-wrapper::after {
+    right: 0;
 }
 
 .roW {
@@ -71,7 +102,7 @@ p {
 
 .nav {
     display: flex;
-    gap: 15vw;
+    gap: 288px;
 }
 
 .nav__link {
@@ -101,7 +132,7 @@ p {
 }
 
 .hero__image {
-    width: 96vw;
+    width: 1843px;
     height: auto;
     display: block;
 }
@@ -110,14 +141,14 @@ p {
     margin-left: -550px;
     margin-top: -200px;
     height: auto;
-    width: 75vw;
+    width: 1440px;
     position: relative;
     z-index: 999;
 }
 
 .flate {
     height: auto;
-    width: 20vw;
+    width: 384px;
     margin-right: -20px;
 }
 
@@ -198,8 +229,8 @@ p {
 .hybridText {
     color: white;
     margin-top: 150px;
-    margin-right: 5vw;
-    margin-left: 5vw;
+    margin-right: 96px;
+    margin-left: 96px;
 }
 
 .hybridArt {
@@ -208,7 +239,7 @@ p {
     gap: 20px;
     width: 62%;
     margin-top: -20px;
-    margin-left: -5vw;
+    margin-left: -96px;
 }
 
 .artThumb {
@@ -252,7 +283,7 @@ p {
 }
 
 .visualsText {
-    margin-left: 5vw;
+    margin-left: 96px;
     position: relative;
     max-width: 400px;
     color: white;
@@ -302,7 +333,7 @@ p {
 
 .fdCampaign {
     margin-top: 150px;
-    margin-right: 5vw;
+    margin-right: 96px;
     max-height: 400px;
     justify-content: end;
 }
@@ -345,7 +376,7 @@ p {
 
 .isDiv1 {
     margin-top: 70px;
-    margin-left: 5vw;
+    margin-left: 96px;
     flex: 0 0 auto;
     margin-right: 40px;
 }
@@ -393,7 +424,7 @@ p {
 }
 
 .uxText {
-    margin-left: 5vw;
+    margin-left: 96px;
     position: relative;
     max-width: 800px;
     color: white;
@@ -402,7 +433,7 @@ p {
 }
 
 .UxSmartphoneGroup {
-    margin-right: 5vw;
+    margin-right: 96px;
     margin-top: 150px;
 }
 
@@ -413,12 +444,12 @@ p {
 }
 
 .UxSmartphoneGroupImg {
-    width: 25vw;
+    width: 480px;
 }
 
 /* ==================== CONTACT SECTION ==================== */
 #contact {
-    padding: 120px 5vw 60px;
+    padding: 120px 96px 60px;
     position: relative;
     height: 600px;
     overflow: visible;
@@ -486,14 +517,34 @@ p {
     opacity: 0.7;
 }
 
+
+.mobile-pdf-wrapper {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: #000000;
+    z-index: 10000;
+}
+
+.mobile-pdf-wrapper embed {
+    width: 100%;
+    height: 100%;
+}
+
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 920px) {
-    body {
-        margin: 20px;
-        font-size: 1em;
+@media (max-width: 1080px) {
+    .site-wrapper {
+        display: none;
     }
 
     .site-header {
         display: none;
+    }
+
+    .mobile-pdf-wrapper {
+        display: block;
     }
 }
