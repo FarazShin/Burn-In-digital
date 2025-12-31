@@ -517,22 +517,118 @@ p {
     opacity: 0.7;
 }
 
+/* ==================== MOBILE ==================== */
 
-.mobile-pdf-wrapper {
+.mobileVersion {
     display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background: #000000;
-    z-index: 10000;
+    background: var(--colorPage);
+    width: 100vw;
+    margin: 0;
+    padding: 0;
 }
 
-.mobile-pdf-wrapper embed {
+.mobileHero {
     width: 100%;
-    height: 100%;
+    margin: 0;
+    padding: 0;
 }
+
+.mobileHeroImageWrapper {
+    position: relative;
+    width: 100%;
+}
+
+.mobileHeroImage {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.mobileHeroTags {
+    position: absolute;
+    top: 82%;
+    left: 5%;
+    transform: translateY(-50%);
+}
+
+.mobileHeroTagLine {
+    font-size: var(--fontSmall);
+    margin: 0.3em 0;
+    color: var(--colorAccent);
+    font-family: "OCR A Extended", monospace;
+}
+
+
+
+.mobileBlackBox {
+    background: #000000;
+    width: 100%;
+    height: 375px;
+}
+
+.mobileBlackBoxContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobileBlackBoxText {
+    padding: 0.3em;
+    margin-left: 1em;
+    margin-right: 1em;
+    color: white;
+    font-size: var(--fontSmall);
+    text-align: left;
+}
+
+.mobileRenderImage {
+    margin-left: -370px;
+    margin-top: -80px;
+    width: 150vw;
+    height: auto;
+}
+.mobileFlate{
+    width: 96px;
+    margin-right: 0.3em;
+}
+
+.mobileNavBox {
+    background: var(--colorAccent);
+    padding: 30px 20px;
+    width: 40vw;
+}
+
+.mobileNavLabel {
+    font-family: "OCR A Extended", monospace;
+    font-size: clamp(18px, 4vw, 24px);
+    color: #000000;
+    margin: 0 0 20px 0;
+}
+
+.mobileNavList {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.mobileNavLink {
+    font-family: "OCR A Extended", monospace;
+    font-size: clamp(16px, 3.8vw, 20px);
+    color: white;
+    text-decoration: underline;
+}
+
+.mobileNavLink:hover {
+    text-decoration: none;
+}
+
+.mobileAboutTag{
+    display: block;
+    font-family: "OCR A Extended", monospace;
+    font-size: var(--fontSmall);
+    color: var(--colorAccent);
+}
+
 
 /* ==================== RESPONSIVE ==================== */
 @media (max-width: 1080px) {
@@ -544,7 +640,8 @@ p {
         display: none;
     }
 
-    .mobile-pdf-wrapper {
+    .mobileVersion {
         display: block;
+
     }
 }
