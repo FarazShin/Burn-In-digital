@@ -669,8 +669,86 @@ p {
     height: auto;
     z-index: 2;
 }
+.UxMobile{
+    width: 33vw;
+    margin-top: 30px;
+}
+
+.mobileContactLink {
+    display: inline-block;
+    font-family: "OCR A Extended", monospace;
+    font-size: clamp(16px, 4vw, 24px);
+    color: var(--colorAccent);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.mobileContactLink:hover {
+    opacity: 0.7;
+}
+.mobileContactSection {
+    width: 100%;
+    background: var(--colorPage);
+}
+
+.mobileContactWrapper {
+    position: relative;
+
+    height: 100px;
+}
+
+.liquidGraphicMobile {
+    position: absolute;
+    top: -150px;
+    right: -60px;
+    width: 100%;
+    height: auto;
+    z-index: 1;
+}
+
+.mobileContactTextBox {
+    position: relative;
+    z-index: 2;
+    width: 62%;
+    margin-top: 100px;
+}
+
+.mobileContactText {
+    margin-left: 1rem;
+    font-size: 16px;
+    color: black;
+}
+
+.mobileContactLink {
+    display: inline-block;
+    font-family: "OCR A Extended", monospace;
+    color: var(--colorAccent);
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.mobileContactLink:hover {
+    opacity: 0.7;
+}
+
+.mobileBackToTop {
+    display: block;
+    text-align: center;
+    font-family: "OCR A Extended", monospace;
+    font-size: 16px;
+    color: var(--colorAccent);
+    text-decoration: none;
+    margin-top: 50px;
+    transition: opacity 0.3s;
+    margin-bottom: 30px;
+}
+
+.mobileBackToTop:hover {
+    opacity: 0.7;
+}
+
 /* ==================== RESPONSIVE ==================== */
-@media (max-width: 1080px) {
+@media (max-width: 1800px) {
     .site-wrapper {
         display: none;
     }
