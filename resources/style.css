@@ -800,35 +800,39 @@ p {
 }
 
 /* ==================== SCROLL REVEAL ==================== */
+/* Die Animation haengt am Scrollen, sie wird nicht einmalig ausgeloest:
+   --p laeuft stufenlos von 0 (Element am Bildschirmrand) auf 1 (Mitte des
+   Elements in der Mitte des Bildschirms) und beim Weiterscrollen wieder
+   zurueck. Gesetzt wird --p vom Skript in portfolio/index.html. */
+
 [data-reveal] {
-    opacity: 0;
-    transition: opacity 700ms cubic-bezier(0.22, 0.61, 0.36, 1),
-                transform 700ms cubic-bezier(0.22, 0.61, 0.36, 1);
-    transition-delay: var(--revealDelay, 0ms);
+    --p: 0;
 }
 
-[data-reveal="left"]  { transform: translate3d(-70px, 0, 0); }
-[data-reveal="right"] { transform: translate3d(70px, 0, 0); }
-[data-reveal="up"]    { transform: translate3d(0, 50px, 0); }
-
-/* Mobile: kuerzere Wege, sonst wirkt es auf schmalen Screens hektisch */
-.mobileVersion [data-reveal="left"]  { transform: translate3d(-30px, 0, 0); }
-.mobileVersion [data-reveal="right"] { transform: translate3d(30px, 0, 0); }
-.mobileVersion [data-reveal="up"]    { transform: translate3d(0, 24px, 0); }
-
-/* muss als letzte Regel stehen, damit sie die Mobile-Overrides schlaegt */
-[data-reveal].isRevealed {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
+/* Bilder und Grafikbloecke: kurzer Weg, nur begleitend zum Scrollen */
+[data-reveal="left"],
+[data-reveal="right"],
+[data-reveal="up"] {
+    opacity: var(--p);
+    will-change: transform, opacity;
 }
+
+[data-reveal="left"]  { transform: translate3d(calc(-28px * (1 - var(--p))), 0, 0); }
+[data-reveal="right"] { transform: translate3d(calc(28px * (1 - var(--p))), 0, 0); }
+[data-reveal="up"]    { transform: translate3d(0, calc(20px * (1 - var(--p))), 0); }
+
+/* Mobile: noch kuerzere Wege, sonst wirkt es auf schmalen Screens unruhig */
+.mobileVersion [data-reveal="left"]  { transform: translate3d(calc(-14px * (1 - var(--p))), 0, 0); }
+.mobileVersion [data-reveal="right"] { transform: translate3d(calc(14px * (1 - var(--p))), 0, 0); }
+.mobileVersion [data-reveal="up"]    { transform: translate3d(0, calc(10px * (1 - var(--p))), 0); }
+
+/* Text: das Aufdecken passiert ueber eine clip-path, die das Skript aus den
+   gemessenen Zeilenboxen baut. Hier steht bewusst nichts weiter - der Text
+   bleibt unangetastet, damit sich an den Zeilenumbruechen nichts aendert. */
 
 @media (prefers-reduced-motion: reduce) {
-    [data-reveal],
-    .mobileVersion [data-reveal] {
-        opacity: 1;
-        transform: none;
-        transition: none;
-    }
+    [data-reveal] { opacity: 1; transform: none; }
+    [data-reveal="type"] { clip-path: none !important; }
 }
 
 /* ==================== SEITENSKALIERUNG (FALLBACK) ==================== */
