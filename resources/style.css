@@ -809,12 +809,14 @@ p {
     --p: 0;
 }
 
-/* Bilder und Grafikbloecke: kurzer Weg, nur begleitend zum Scrollen */
+/* Bilder und Grafikbloecke wandern nur ein Stueck mit dem Scrollen mit.
+   Bewusst ohne opacity: sie sollen nie verschwinden, sondern immer sichtbar
+   bleiben und sich lediglich leicht nach aussen und wieder nach innen
+   bewegen. */
 [data-reveal="left"],
 [data-reveal="right"],
 [data-reveal="up"] {
-    opacity: var(--p);
-    will-change: transform, opacity;
+    will-change: transform;
 }
 
 [data-reveal="left"]  { transform: translate3d(calc(-28px * (1 - var(--p))), 0, 0); }
@@ -831,7 +833,7 @@ p {
    bleibt unangetastet, damit sich an den Zeilenumbruechen nichts aendert. */
 
 @media (prefers-reduced-motion: reduce) {
-    [data-reveal] { opacity: 1; transform: none; }
+    [data-reveal] { transform: none; }
     [data-reveal="type"] { clip-path: none !important; }
 }
 

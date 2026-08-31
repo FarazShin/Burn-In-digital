@@ -361,12 +361,15 @@
     sections.forEach(section => observer.observe(section));
 
     /* ---------- Scroll Reveal ----------
-       Kein einmaliges Ausloesen: der Fortschritt haengt stufenlos am
-       Scrollstand. 0 = Element am Bildschirmrand, 1 = Mitte des Elements in
-       der Bildschirmmitte. Beim Weiterscrollen laeuft er wieder zurueck.
+       Zwei getrennte Verhalten:
 
-       Bilder bewegen sich dabei ein Stueck, Text wird zeilenweise von links
-       nach rechts aufgedeckt. Das Aufdecken laeuft ueber eine treppenfoermige
+       Bilder und Grafikbloecke haengen am Scrollstand. Sie verschwinden nie,
+       sondern wandern nur ein Stueck: --p laeuft stufenlos von 0 (Element am
+       Bildschirmrand) auf 1 (Mitte des Elements in der Bildschirmmitte) und
+       beim Weiterscrollen wieder zurueck.
+
+       Text wird einmalig geschrieben, sobald er in den Blick kommt, und
+       bleibt dann stehen. Das Aufdecken laeuft ueber eine treppenfoermige
        clip-path aus den gemessenen Zeilenboxen - der Text selbst wird nicht
        angefasst. Zeichen einzeln zu umschliessen waere naheliegender, misst
        aber minimal breiter, und bei randvoll gefuellten Zeilen rutscht dann
@@ -374,9 +377,11 @@
     const revealEls = Array.from(document.querySelectorAll("[data-reveal]"));
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    const PLATEAU = 0.35;   // innerhalb dieses Bereichs um die Mitte gilt schon voll
-    const TYPE_START = 0.20;
-    const TYPE_END = 0.70;  // Text ist frueher fertig als die Bewegung: wirkt schneller
+    const PLATEAU = 0.35;        // Zone um die Bildschirmmitte, in der voll angekommen gilt
+    const TYPE_TRIGGER = 0.85;   // ab wie weit im Bild der Text zu schreiben beginnt
+    const TYPE_BASE = 300;       // Grundzeit in ms
+    const TYPE_PER_LINE = 60;    // je Zeile zusaetzlich
+    const TYPE_MAX = 1200;       // laenger dauert kein Block
 
     function clamp01(v) {
         return v < 0 ? 0 : v > 1 ? 1 : v;
@@ -480,7 +485,9 @@
         el: el,
         type: el.dataset.reveal === "type",
         lines: null,
-        clip: ""
+        clip: "",
+        startedAt: 0,
+        done: false
     }));
 
     let ticking = false;
@@ -491,43 +498,72 @@
         const viewportHeight = window.innerHeight;
         const scrollY = window.scrollY;
         const maxScroll = Math.max(0, document.documentElement.scrollHeight - viewportHeight);
+        const now = performance.now();
 
         /* erst alle Positionen lesen, dann alle Stile schreiben - sonst wird
            pro Element ein Layout erzwungen */
-        const distances = items.map(item => {
-            const rect = item.el.getBoundingClientRect();
-            const anchor = Math.min(rect.height, viewportHeight * 0.6) / 2;
-            /* Scrollstand, bei dem dieses Element mittig staende. Am Anfang und
-               Ende des Dokuments ist das nicht erreichbar - dort wird geklemmt,
-               damit oberste und unterste Elemente trotzdem voll ankommen. */
-            const centeredAt = Math.min(
-                Math.max(rect.top + scrollY + anchor - viewportHeight / 2, 0),
-                maxScroll
-            );
-            return Math.abs(scrollY - centeredAt) / (viewportHeight / 2);
-        });
+        const rects = items.map(item => item.el.getBoundingClientRect());
+        let animating = false;
 
         items.forEach((item, i) => {
-            const d = distances[i];
+            const rect = rects[i];
 
             if (!item.type) {
+                const anchor = Math.min(rect.height, viewportHeight * 0.6) / 2;
+                /* Scrollstand, bei dem dieses Element mittig staende. Am Anfang
+                   und Ende des Dokuments ist das nicht erreichbar - dort wird
+                   geklemmt, damit oberste und unterste Elemente ankommen. */
+                const centeredAt = Math.min(
+                    Math.max(rect.top + scrollY + anchor - viewportHeight / 2, 0),
+                    maxScroll
+                );
+                const d = Math.abs(scrollY - centeredAt) / (viewportHeight / 2);
                 const t = 1 - clamp01((d - PLATEAU) / (1 - PLATEAU));
                 item.el.style.setProperty("--p", smoothstep(t).toFixed(3));
                 return;
             }
+
+            if (item.done) return;
 
             /* Zeilen erst messen sobald das Element sichtbar ist - die
                Mobilfassung ist am Desktop display:none und umgekehrt. */
             if (!item.lines && item.el.offsetParent) item.lines = measureLines(item.el);
             if (!item.lines || !item.lines.length) return;
 
-            const t = 1 - clamp01((d - TYPE_START) / (TYPE_END - TYPE_START));
-            const clip = typeClip(item.lines, smoothstep(t));
+            if (!item.startedAt) {
+                const inView = rect.top < viewportHeight * TYPE_TRIGGER && rect.bottom > 0;
+                if (!inView) {
+                    /* noch nicht dran: verdeckt halten, ohne etwas anzustossen */
+                    if (item.clip !== "hidden") {
+                        item.clip = "hidden";
+                        item.el.style.clipPath = "polygon(0 0, 0 0, 0 0)";
+                    }
+                    return;
+                }
+                item.startedAt = now;
+            }
+
+            const duration = Math.min(TYPE_MAX, TYPE_BASE + item.lines.length * TYPE_PER_LINE);
+            const p = clamp01((now - item.startedAt) / duration);
+
+            if (p >= 1) {
+                /* fertig geschrieben - ab hier nie wieder anfassen */
+                item.done = true;
+                item.clip = "none";
+                item.el.style.clipPath = "none";
+                return;
+            }
+
+            animating = true;
+            const clip = typeClip(item.lines, p);
             if (clip !== item.clip) {
                 item.clip = clip;
                 item.el.style.clipPath = clip;
             }
         });
+
+        /* solange irgendwo geschrieben wird, laeuft die Schleife weiter */
+        if (animating) requestReveal();
     }
 
     function requestReveal() {
@@ -536,8 +572,12 @@
         requestAnimationFrame(updateReveal);
     }
 
-    function resetLines() {
-        items.forEach(item => { item.lines = null; item.clip = ""; });
+    function remeasure() {
+        items.forEach(item => {
+            if (item.done) return;
+            item.lines = null;
+            item.clip = "";
+        });
         requestReveal();
     }
 
@@ -546,8 +586,8 @@
     } else {
         updateReveal();
         window.addEventListener("scroll", requestReveal, { passive: true });
-        window.addEventListener("load", resetLines);
-        window.addEventListener("resize", resetLines);
+        window.addEventListener("load", remeasure);
+        window.addEventListener("resize", remeasure);
     }
 
     /* ---------- Seitenskalierung ----------
