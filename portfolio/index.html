@@ -34,7 +34,7 @@
             <div style="max-width: 500px">
                 <img src="../resources/images/render.png" alt="Liquid render" class="liquidRender" data-reveal="left">
             </div>
-            <div style="margin: 5vw" data-reveal="right">
+            <div style="margin: 96px" data-reveal="right">
                 <p class="textRight" style="color: white">Translocating between dimensions,<br> blending the energy of 2D and the depth of 3D <br>to help your projects move beyond <br>static visuals into living experiences.</p>
                 <div class="roW" style="justify-content: flex-end">
                     <img src="../resources/images/flate03.png" alt="flate" class="flate">
@@ -382,6 +382,28 @@
 
         revealEls.forEach(el => revealObserver.observe(el));
     }
+
+    /* ---------- Seitenskalierung ----------
+       Setzt --pageScale / --mobileScale exakt auf die Fensterbreite.
+       clientWidth statt innerWidth: rechnet die Scrollbar heraus,
+       sonst entsteht ein horizontaler Ueberlauf. */
+    const DESKTOP_WIDTH = 1920;   // Breite, fuer die das Desktop-Layout gebaut ist
+    const MOBILE_WIDTH = 320;     // Breite, fuer die die Mobile-Version gebaut ist
+    const MOBILE_MAX_SCALE = 2;   // darueber wuerde die Handyversion auf Tablets grotesk wirken
+
+    function updatePageScale() {
+        const width = document.documentElement.clientWidth;
+        const style = document.documentElement.style;
+
+        style.setProperty("--pageScale", Math.min(1, width / DESKTOP_WIDTH));
+        style.setProperty(
+            "--mobileScale",
+            Math.min(MOBILE_MAX_SCALE, Math.max(1, width / MOBILE_WIDTH))
+        );
+    }
+
+    updatePageScale();
+    window.addEventListener("resize", updatePageScale);
 </script>
 </body>
 </html>
